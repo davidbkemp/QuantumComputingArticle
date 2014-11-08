@@ -1,0 +1,665 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+<title>An Interactive Introduction To Quantum Computing</title>
+<link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+<article>
+
+    <h1>An Interactive Introduction To Quantum Computing</h1>
+    <div class="subtitle">
+        Or <em>What Do You Mean They Can Be Both Zero And One At The Same Time!</em>
+    </div>
+    <img src="animated-qubits.png" class="titleImage" alt="qubit animation"/>
+    <p>By David Kemp</p>
+    <p>@david_b_kemp</p>
+    
+    <p>Heard of quantum computers?</p>
+    <p>Heard that they are faster than conventional computers?</p>
+    <p>Perhaps you have heard of quantum bits (abbreviated to qubits).</p>
+    <p>
+        Maybe you have even heard of the puzzling notion that
+        <b>qubits can have the values 0 and 1
+        <em>both at the same time</em></b>.
+    </p>
+    <p>Let me try to explain what this really means.</p>
+    
+    <p>
+        This is part one of a two part series
+        for those that want to
+        learn a little about quantum computing,
+        but lack the mathematics and quantum physics background required
+        by many of the introductions out there.
+        It covers some of the basics of quantum computing,
+        such as qubits, state phases, and quantum interference.
+        <a href="part2.html">Part 2</a>
+        goes on to look at quantum search.
+    </p>
+
+
+
+    <h2>Qubits</h2>
+    <p>
+        I assume you know what plain old ordinary binary bits are.
+        <span class="help">
+            Sorry, I but cannot assume you know nothing at all!
+        </span>
+    </p>
+    <p>
+        Conventional bits are implemented using many different approaches:
+        e.g. voltages on a wire,
+        pulses of light on a glass fibre,
+        etc. etc.
+    </p>
+    <p>Just like bits, <em>qubits</em> have a binary state.</p>
+    <p>
+        <b>Qubits represent 0 and 1 using quantum phenomenon like
+        the nuclear spin direction of individual atoms</b>.
+    </p>
+    <p>
+        E.g. use &ldquo;clockwise&rdquo; for 0 and &ldquo;anti clockwise&rdquo; for 1.
+    </p>
+    <figure>
+        <div class="labelledImage">
+            <img src="spinDown.svg" alt="Spin Down" class="nuclearSpin"/>
+            <div class="labelledImage_label nuclearSpinLabel">0</div>
+        </div>
+        <div class="labelledImage">
+            <img src="spinUp.svg" alt="Spin Up" class="nuclearSpin"/>
+            <div class="labelledImage_label nuclearSpinLabel">1</div>
+        </div>
+    </figure>
+
+
+
+    <h2>The NOT operator</h2>
+    <p>
+        Consider the conventional NOT (or bit-flip) operator.
+        <span class="help">
+            0 and 1 can represent logical <em>true</em> and <em>false</em>.
+            NOT <em>true</em> is <em>false</em>, and NOT <em>false</em> is <em>true</em>.
+            And so, NOT of 1 is 0, and NOT of 0 is 1.
+        </span>
+    </p>
+    <p>For example, performing a NOT operation on the right most bit of the binary number 111
+    <b>flips the target bit</b> and results in 110.</p>
+    <p>In what follows, it will be convenient to represent the state of a system by listing all possible states
+        and placing a blue disk next to the current state.</p>
+    <p>
+        Click the button labelled &ldquo;<em>Not bit<sub>a</sub>&rdquo;</em>
+        to apply the NOT operation to the left bit,
+        and click the button labelled &ldquo;<em>Not bit<sub>b</sub>&rdquo;</em>
+        to apply the NOT operation to the right bit:
+    </p>
+    <p><small>
+        There is nothing quantum mechanical about these first few interactive examples.
+        Their main purpose is to familiarise you with
+        interactive animations I use in this article.
+    </small></p>
+    
+    <div class="animationBlock" id="simpleNotExample"
+        data-bit-labels="bit-a,bit-b">
+        <div class="animationBlock_buttons">
+            <div>
+                <button class="operator" data-operator="not" data-qubits="1"
+                    data-skipInterferenceSteps>Not bit<sub>a</sub>
+                </button>
+                <button class="operator" data-operator="not" data-qubits="0"
+                    data-skipInterferenceSteps>Not bit<sub>b</sub>
+                </button>
+            </div>
+        </div>
+        <div class="qstate">State:
+            <span class="qstateValue" data-description="single"></span>
+        </div>
+        <svg class="qstateSvg qstateSvg__hideArrows"></svg>
+    </div>
+
+
+
+
+    <h2>Random NOT</h2>
+    <p><em>Random NOT</em>: A NOT operator that has a specified chance of flipping a bit.</p>
+    <p>
+        Although not very common,
+        the &ldquo;Random NOT&rdquo; is still <b>just a classical (non-quantum) operator</b>,
+        but it will help me explain the workings of some quantum operators.
+    </p>
+    <p>
+        Consider applying a Random NOT twice to a bit whose initial value is 0,
+        where the operator has, for instance, a 30% chance of flipping the bit.
+        What is the probability of the final state being 0?
+    </p>
+    <p>
+        There are a couple of possible scenarios.
+        For instance, the first Random NOT might flip the bit from 0 to 1,
+        and the second Random NOT might flip the bit back to 0.
+        We represent this as:
+    </p>
+    <p>
+        0 &rarr; 1 &rarr; 0
+    </p>
+    <p>There are two paths leading to a final state of 0:</p>
+    <ul>
+        <li>
+            0 &rarr; 0 &rarr; 0 with probability of 0.7 x 0.7 = 0.49
+        </li>
+        <li>
+            0 &rarr; 1 &rarr; 0 with probability of 0.3 x 0.3 = 0.09
+        </li>
+    </ul>
+    <p>And so the final state will be 0 with a probability of 49% + 9% = 58%</p>
+    <img src="classicalRandomNot.png" class="largeImage" alt="Probability tree for random NOT"/>
+
+
+    <h2>Random NOT (your turn)</h2>
+    <p>Next we provide an interactive animation of the Random NOT operator.</p>
+    <p>The blue disk now splits in two so that we can track the different possible outcomes.</p>
+    <p>The probability of being in a state is represented by the radius of the disk.</p>
+    <p>
+        Press the &ldquo;Random NOT&rdquo; button multiple times and
+        <b>note how the arrows add head to tail</b>.
+    </p>
+    <p><small>
+        Still nothing quantum mechanical about any of this.
+        We are still just warming up.
+    </small></p>
+    
+    <div class="animationBlock" id="randomNotExample">
+        <div class="animationBlock_buttons">
+            <div>
+                <button class="operator" data-operator="randomNot" data-qubits="0">
+                    Random Not<sub>30%</sub>
+                </button>
+            </div>
+        </div>
+        <div class="qstate">State:
+            <span class="qstateValue" data-description="classical"></span>
+        </div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+
+
+
+
+<h2>Measurement</h2>
+    <p>
+        We have seen how a random NOT operator can
+        cause a conventional computer to have various probabilities
+        of being in different states.
+        Of course
+        <b>in reality it is in only one of those states</b>.
+        We just don't know which one.
+        Strangely, this is an assumption about reality that we will need to reconsider
+        when we look at qubits.
+    </p>
+    <p>
+        If you peek at the system to determine its actual state,
+        then the probabilities all <em>collapse</em>
+        so that one state (the observed state)
+        is deemed to now have a probability of 1,
+        and all the others are deemed to have a probability of 0.
+    </p>
+    <p>
+        Remember, the larger the blue disk,
+        the more likely the system will turn out to be in that state.
+    </p>
+    <p>
+        In quantum computing,
+        the word <em>measurement</em> refers to this act of peeking.
+    </p>
+    <p>
+        Press the &ldquo;Random NOT&rdquo; button multiple times
+        and then press the &ldquo;measurement&rdquo; button.
+    </p>
+    <p><small>
+        Note that there is still nothing quantum mechanical about this yet.
+        That comes next!
+    </small></p>
+    
+    <div class="animationBlock" id="classicalMeasurementExample">
+        <div class="animationBlock_buttons">
+            <div>
+                <button class="operator" data-operator="randomNot" data-qubits="0">
+                    Random Not<sub>30%</sub>
+                </button>
+            </div>
+            <div>
+                <button class="measure" data-qubits="0">Measure</button>
+            </div>
+        </div>
+        <div class="qstate">State:
+            <span class="qstateValue" data-description="classical"></span>
+        </div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+
+
+
+
+<h2>Hadamard of 0</h2>
+    <p>
+        The &ldquo;Hadamard operator&rdquo; is
+        a special <em>quantum</em> operator that can be applied to qubits.
+    </p>
+    <p>
+        <b>Warning:</b> this first look at quantum operators will be pretty boring.
+        I promise it will get interesting soon!
+    </p>
+    <p>As you will see below, the Hadamard initially acts like a Random NOT with 50% chance of success.</p>
+    <p><small>
+        In this interactive example,
+        I purposely disable the Hadamard button after you press it.
+        Later in this article we will see what happens when you apply the Hadamard twice in a row.
+    </small></p>
+    
+        
+    <div class="animationBlock" id="hadamardOf0Example">
+        <div class="animationBlock_buttons">
+            <div>
+                <button class="operator" data-operator="hadamard"
+                        data-qubits="0" data-disable-after-use>
+                    Apply Hadamard
+                </button>
+            </div>
+            <div>
+                 <button class="reset">Reset</button>
+            </div>
+        </div>
+        <div class="qstate">State: <span class="qstateValue"></span></div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+
+
+
+    <h2>Nothing unusual about that was there?</h2>
+    <p>But you will be surprised by what comes next...</p>
+
+
+
+
+<h2>Hadamard of 1</h2>
+    <p>Things start to become weird when you look at the Hadamard of 1.</p>
+    <p>Look carefully at the arrow directions.</p>
+    <div class="animationBlock" id="hadamardOf1Example">
+        <div class="animationBlock_buttons">
+            <div>
+                <button class="operator" data-operator="hadamard"
+                        data-qubits="0" data-disable-after-use>
+                    Apply Hadamard
+                </button>
+            </div>
+            <div>
+                 <button class="reset">Reset</button>
+            </div>
+        </div>
+        <div class="qstate">State: <span class="qstateValue"></span></div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+
+
+
+<h2>Huh?</h2>
+<img src="confusedCat.jpg" class="mediumImage" alt="Photograph of confused cat"/>
+
+
+
+<h2>Phase</h2>
+<p>
+    Puzzled?
+    You should be if this is all new to you. 
+    Please hang in there for a while longer.
+</p>
+    
+<p>
+    The arrow directions represent what physicists call <em>phase</em>:
+</p>
+
+<ul>
+    <li>it is an abstract concept of quantum mechanics.</li>
+    <li>it has no &ldquo;common sense&rdquo; interpretation.</li>
+    <li>it can <b>only be measured indirectly</b>.</li>
+</ul>
+
+<p>
+    In the case of nuclear spin,
+    phases can be manipulated by applying electric and/or
+    magnetic fields.
+</p>
+<p>
+    We will see the importance of phase in a moment,
+    but first let's look at another interesting quantum computing operator...
+</p>
+
+
+
+<h2>T Operator</h2>
+    <p>The T operator rotates the phase of 1, but leaves 0 untouched.</p>
+    <p>Note how it does not affect the probabilities at all.</p>
+    <div class="animationBlock" id="tExample">
+        <div class="animationBlock_buttons">
+            <div>
+                <button class="operator" data-operator="t"
+                        data-qubits="0" data-skipInterferenceSteps>
+                    Apply T
+                </button>
+            </div>
+        </div>
+        <div class="qstate">State: <span class="qstateValue"></span></div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+
+
+
+
+<h2>Measurement Revisited</h2>
+    <p>Recall:</p>
+    <ul>
+        <li>Measurement causes the system to collapse to the observed state.</li>
+        <li>The larger the blue disk, the more likely the system will collapse to that state.</li>
+        <li>
+            Once the system has collapsed to a particular state,
+            it will remain in that state until another operation is performed.
+        </li>
+    </ul>
+    <p>
+        <b>Important:</b>
+        The likelihood of a state being observed
+        is entirely determined by the <em>size</em> of the blue disk,
+        and is completely unaffected
+        by the <em>direction</em> of the arrow.
+    </p>
+    <div class="animationBlock" id="measurementExample">
+        <div class="animationBlock_buttons">
+            <div>
+                <button class="measure" data-qubits="0,1">Measure</button>
+            </div>
+            <div>
+                 <button class="reset">Reset</button>
+            </div>
+        </div>
+        <div class="qstate">State: <span class="qstateValue"></span></div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+
+
+
+<h2>Quantum Interference</h2>
+
+    <p>Consider what happens when we apply a Hadamard operation twice in a row.</p>
+
+    <p>
+        Let's assume that a qubit is initially known to definitely have the value 0.
+        If you were to apply the Hadamard to it twice in a row,
+        then there are four equally likely scenarios
+        (Recall that <span class="math">&ldquo;x &rarr; y &rarr; z&rdquo;</span>
+        means &ldquo;the qubit starts with a value x,
+        the first Hadamard results in the qubit having the value y,
+        and the second Hadamard results in the qubit having the value z&rdquo;):
+    </p>
+    <ul>
+        <li>0 &rarr; 0 &rarr; 0</li>
+        <li>0 &rarr; 0 &rarr; 1</li>
+        <li>0 &rarr; 1 &rarr; 0</li>
+        <li>0 &rarr; 1 &rarr; 1</li>
+    </ul>
+    
+    <p>
+        So the final value should be equally likely to be 0 or 1 but,
+        in reality,
+        <b>applying the Hadamard operator twice in a row
+        always returns the qubit to its original value</b>.
+        In our case, where the qubit is initially 0,
+        two applications of the Hadamard will result in it being 0 again.
+    </p>
+    
+    <p>
+        Try it out.
+        Press the &ldquo;Apply Hadamard&rdquo; button twice
+        and watch it return to having a 100% likelihood of having the value 0.
+    </p>
+    
+    <div class="animationBlock" id="fullInterferenceExample">
+        <div class="animationBlock_buttons">
+            <div>
+                <button class="operator" data-operator="hadamard" data-qubits="0">Apply Hadamard</button>
+            </div>
+        </div>
+        <div class="qstate">State: <span class="qstateValue"></span></div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+
+
+
+    <h2>Totally confused?</h2>
+    <blockquote>
+        If quantum mechanics hasn't profoundly shocked you, you haven't understood it yet.
+        <br />
+        <em>Neils Bohr</em>
+    </blockquote>
+
+
+
+    <h2>What is going on here?</h2>
+    
+    <p>
+        The state of the qubit after the first Hadamard
+        seems to have a 50% chance of being 0
+        and a 50% chance of being 1.
+   </p>
+   <p>
+    The second Hadamard is applied to both the 0 and 1 states
+    and the results are combined.
+   </p>
+    
+    <p>
+        <b>The arrows still add head to tail</b>.
+    </p>
+
+    <p>
+        <b>
+            The two different scenarios ending in a 1 state have opposite phases
+            and so they cancel each other out.
+        </b>
+    </p>
+    <p>
+        This process of phases causing possible outcomes to cancel or re-enforce
+        is what physicists call <em>interference</em>.
+    </p>
+    
+    <p>This is what philosophers of physics loose sleep over.</p>
+    
+    <img src="doubleHadamardOf0.png" class="largeImage" alt="Paths for applying Hadamard twice to 0."/>
+    
+    <p>
+        By the way,
+        the mathematically inclined may be worried about
+        all the probabilities not adding up to 1 any more.
+        The trick is that
+        the arrow lengths now have to represent
+        the square roots of the probabilities.
+        We will briefly cover this in more detail in the section entitled
+        <a href="part2.html#maths">Some mathematics</a>
+        in Part 2.
+    </p>
+
+
+
+
+    <h2>Hadamard of 1 (revisited)</h2>
+    <p> 
+        It is instructive to observe the effects of applying
+        a Hadamard twice in a row when the initial value is 1.
+        This time, the qubit returns to 1:
+    </p>
+    <div class="animationBlock" id="doubleHadamardOf1">
+        <div class="animationBlock_buttons">
+            <div>
+                <button class="operator" data-operator="hadamard" data-qubits="0">Apply Hadamard</button>
+            </div>
+        </div>
+        <div class="qstate">State: <span class="qstateValue"></span></div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+
+
+
+    <h2>Different kinds of uncertainty</h2>
+    
+    <p>
+        We are actually dealing with two different kinds of uncertainty:
+    </p>
+    
+    <ul>
+        <li>
+            It is possible that a bit, and even a qubit,
+            may be in a fixed state of 0 or 1,
+            but that you simply do not know which one it is.
+        </li>
+        <li>
+            However, it is also possible for
+            a qubit to be in what is called
+            a &ldquo;<b><em>superposition</em></b>&rdquo;
+            of both 0 and 1.
+            <b>Such a qubit is in a strange combination of both 0 and 1.</b>
+        </li>
+    </ul>
+
+
+
+    <h2>Small Diversion: Superposition of <em>Locations</em></h2>
+    
+    <p>
+        So far, the rather abstract phenomenon of nuclear spin is
+        the only approach that I have mentioned for creating qubits.
+    </p>
+    <p>
+        Quantum physics seems even more bizarre
+        when you discover that physical objects can be
+        in superpositions of different <em>locations</em>.
+    </p>
+    <p>
+        The photons travelling through an &ldquo;interferometer&rdquo;
+        are in superpositions of locations that can be kilometres apart
+        (as they are in the
+        <a href="http://www.ligo-la.caltech.edu/">LIGO</a>
+        interferometer).
+    </p>
+    <p>
+        A simple interferometer is shown below.
+        Photons are emitted by a light source
+        (e.g. a laser)
+        that is pointing at a
+        &ldquo;half silvered mirror&rdquo;,
+        which reflects some of the light and lets some of the light through.
+    </p>
+    <img src="interferometer.jpg" class="mediumImage" alt="Interferometer"/>
+    <p>
+        Individual photons end up in a superposition of
+        having been reflected
+        and having been let through.
+        A couple more mirrors are used to bring the split light beam back together
+        at a detector.
+        The positions of the mirrors and the detector all effect the lengths of
+        the two different paths,
+        so that one path can be longer than the other.
+        Like the T operator described earlier,
+        a change in the relative path lengths will alter
+        the relative phases of the two photon states.
+        A difference equal to the wavelength of light is enough to
+        change the relative phases by an entire 360 degrees.
+        If the phases are exactly opposite,
+        then they will cancel each other out,
+        and the detector will not detect anything.
+        The resulting effect will be an alternating series of light
+        and dark concentric rings like those shown below.
+    </p>
+    
+      
+    <p>
+        This interference effect even happens when
+        the light source is slowly emitting photons
+        one at a time.
+    </p>
+    
+    
+    <img src="interferencePattern.jpg" class="mediumImage" alt="Interference Pattern"/>
+    
+    <p>
+        It is tempting to think that the half silvered mirror
+        is splitting each photon in two
+        and that the interference effects are caused by the two photons
+        interacting with each other.
+        But this is not what happens.
+    </p>
+    <p>
+        If detectors are placed on the two paths,
+        and the light source is slowly emitting photons
+        one at a time,
+        then the detectors only ever detect a photon
+        on one path or the other.
+        <b>They never detect two photons at once!</b>
+        (Well, they very occasionally do due to the light source
+        very occasionally emitting two at once,
+        but the frequency that this should happen is
+        easily predicted and verified.)
+    </p>
+   
+    <p>
+        <b>If detectors are placed on either or both of the two paths,
+        then the act of detecting the presence (or absence) of the photon
+        causes the superposition to collapse to one or the other,
+        and the interference effects disappear,
+        even if the detector lets the photon continue on.</b>
+    </p>
+
+
+
+    <h2>
+        It gets even more interesting when you have more than one qubit
+    </h2>
+
+    <p>
+        The quantum weirdness rises to a whole new level when there are two or more qubits interacting.
+        This is explored in <a href="part2.html">Part 2</a>.
+    </p>
+    <p>
+        If you want to experiment with various single qubit quantum operations first,
+        then have a play with the
+        <em><a href="http://davidbkemp.github.io/quantum-gate-playground/">
+            Quantum Computer Gate Playground
+        </a></em>
+    </p>
+
+
+<section class="attributions">
+    <h2>Attributions</h2>
+    <p>Michelson Interferometer: http://commons.wikimedia.org/wiki/File:Michaelson_with_letters.jpg</p>
+    <p>Interference Pattern: http://commons.wikimedia.org/wiki/File:Zonenplatte_Cosinus.png</p>
+</section>
+
+<footer>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">An Interactive Introduction To Quantum Computing</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">David Kemp</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.
+</footer>
+
+</article>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="dist/main.js"></script>
+<script src="browserSupportDetection.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56534383-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

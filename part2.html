@@ -1,0 +1,709 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+<title>An Interactive Introduction To Quantum Computing Part 2</title>
+<link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+<article>
+
+    <h1>An Interactive Introduction To Quantum Computing Part 2</h1>
+    <div class="subtitle">
+        <b>Quantum Search</b>
+    </div>
+    <p>
+        This is Part 2 of a two part series.
+        In <a href="index.html">Part 1</a>
+        I explained some of the basics of qubits,
+        including the mysterious notions of phase and quantum interference.
+        Here in Part 2, you will learn
+        how quantum computers may one day be able to solve search problems
+        faster than conventional computers.
+    </p>
+
+<h2>Multiple qubits</h2>
+<p>
+    <b>Important</b>: There is something really important I feel the need to emphasize
+    as we start dealing with multiple qubits.
+</p>
+<p>The blue disks introduced in Part 1 do <em>not</em> correspond to single qubits.</p>
+<p>
+    <b>Each blue disk corresponds to a distinct state of the entire quantum system.</b>
+    If you are not sure what I mean by that,
+    then please hang in there,
+    it will hopefully become aparent very soon.
+</p>
+
+
+
+<h2>Controlled NOT</h2>
+<p>
+    The <em>Controlled NOT</em> operator is a very simple but powerful
+    two-qubit operator.
+</p>
+<p>
+    The Controlled NOT operator modifies the value of one qubit (the target qubit)
+    based on the value of another qubit (the control qubit).
+</p>
+<p>
+    Specifically, <b>the Controlled NOT operator flips the value of the target qubit
+    if the control qubit has a value of 1.</b>
+</p>
+<p>
+    For example:
+    Suppose we have two qubits with
+    an initial value of &ldquo;11&rdquo;.
+    Let&apos;s use the left qubit as the control qubit
+    and the right qubit as the target.
+    Then the result of applying a Controlled NOT
+    will be &ldquo;10&rdquo;.
+    As usual, we represent this as
+    &ldquo;11 &rarr; 10&rdquo;
+</p>
+<p>
+    Continuing with our choice of left qubit as control qubit
+    and right qubit as target,
+    there are four scenarios to consider for
+    the Controlled NOT operator.
+</p>
+<ul>
+    <li>00 &rarr; 00 (i.e. no effect)</li>
+    <li>01 &rarr; 01 (i.e. no effect)</li>
+    <li>10 &rarr; 11 (i.e. target bit flips)</li>
+    <li>11 &rarr; 10 (i.e. target bit flips)</li>
+</ul>
+
+
+
+    <h2>Quantum Entanglement</h2>
+    <p>
+        A combination of the Hadamard followed by a Controlled NOT
+        can put two qubits into a state of &ldquo;quantum entanglement&rdquo;.
+    </p>
+    <p>
+        In what follows, we take a two qubit system in the state &ldquo;00&rdquo;,
+        apply the Hadamard operation to the left qubit,
+        and then use that left qubit as the control in a Controlled NOT
+        of the right qubit:
+    </p>
+    <h3>Initial State</h3>
+    <div class="animationBlock" id="cnot-0">
+        <div class="qstate">State: <span class="qstateValue"></span></div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+    
+    <h3>After applying a Hadamard to the left qubit</h3>
+    <p>
+        When you apply a Hadamard to the left qubit,
+        that qubit goes into
+        a superposition of 0 and 1.
+        The right qubit is not touched and continues to have the value 0.
+        So the pair of qubits goes into
+        a superposition of 00 and 10.
+    </p>
+    <div class="animationBlock" id="cnot-1">
+        <div class="qstate">State: <span class="qstateValue"></span></div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+    <h3>After a Controlled NOT of the right qubit controlled by the left qubit</h3>
+    <p>
+        The Controlled NOT will leave the 00 state unchanged as the control qubit (left qubit) is 0.
+    </p>
+    <p>
+        When acting on the 10 state, the control qubit is 1,
+        and so the target bit is flipped resulting in 11.
+        So the pair of qubits goes into
+        a superposition of 00 and 11.
+    </p>
+    <div class="animationBlock" id="cnot-2">
+        <div class="qstate">State: <span class="qstateValue"></span></div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+    <p>
+        Note that, if you were to measure the qubits while they are in this state,
+        you would find that they are either both 0 or both 1.
+        This sort of correlation between qubit values
+        within a superposition is called
+        &ldquo;quantum entanglement&rdquo;.
+    </p>
+    <p>
+        Why quantum entanglement is so special deserves an entire article of its own.
+        For now, I am simply using entanglement to
+        emphasise how quantum superposition can apply to
+        the combined state of a number of qubits.
+    </p>
+
+
+
+    <h2>Arbitrary Logic Functions</h2>
+    <p>
+        In addition to the NOT operator that we have already seen,
+        a quantum computer can implement the standard
+        logic functions of AND and OR.
+        From these, one can compute any function over a fixed number of bits.
+    </p> 
+    <p>
+        The details are surprisingly fascinating
+        and not as straight forward as you might expect.
+        However,
+        for the purposes of this article,
+        I want you to trust me when I say it can be done.
+        This will allow us to move more quickly to
+        the even more fascinating topic of quantum search.
+    </p>
+    <p>
+        Before we can cover quantum search,
+        there is one more quantum operator I need to introduce.
+    </p>
+
+
+
+    <h2>Controlled Phase Flip</h2>
+    <p>
+        Recall that the term <em>phase</em>,
+        introduced in <a href="index.html">Part 1</a>,
+        refers to the arrow direction of a state.
+    </p>
+    <p>
+        The controlled phase flip is a multi qubit operator.
+        It flips the phase of the states where
+        all of the specified qubits have the value of 1.
+    </p>
+
+    <p>
+        More useful to us, however,
+        is a generalised form of the controlled phase flip.
+        It will flip the phase of the states where the target qubits
+        have any specified combination of 1's and 0's.
+    </p>
+    
+    <p>Try it yourself:</p>
+    
+        <div class="animationBlock" id="generalisedControlledPhaseFlipExample">
+        <div class="animationBlock_buttons">
+            <div>
+                <button class="operator" data-operator="f00"
+                    data-skipInterferenceSteps
+                    data-qubits="0">Phase Flip 00</button>
+                <button class="operator" data-operator="f01"
+                    data-skipInterferenceSteps
+                    data-qubits="0">Phase Flip 01</button>
+                <button class="operator" data-operator="f10"
+                    data-skipInterferenceSteps
+                    data-qubits="0">Phase Flip 10</button>
+                <button class="operator" data-operator="f11"
+                    data-skipInterferenceSteps
+                    data-qubits="0">Phase Flip 11</button>
+            </div>
+        </div>
+        <svg class="qstateSvg qstateSvg__hideBitLabels"></svg>
+    </div>
+
+    
+
+
+
+    <h2>Quantum Search</h2>
+    <p>
+        Imagine you are trying to crack an n-bit encryption key by brute force:
+        i.e. by trying every one of the 2<sup>n</sup> possible values.
+    </p>
+    <p>
+        This is a classic needle in a haystack search problem.
+    </p>
+    <p>
+        You need to construct a function,
+        called the <em>oracle</em> function,
+        that takes a candidate value as input
+        and returns true or false depending
+        on whether or not the candidate is the correct key.
+    </p>
+    <p>
+        A conventional computer will need to evaluate the oracle function,
+        on average,
+        <span class="math">2<sup>n-1</sup></span> times.
+    </p>
+    <p>
+        By using
+        <a href="http://wikipedia.org/wiki/Grover's_algorithm">Grover&apos;s algorithm</a>,
+        a quantum computer only needs to evaluate the oracle function less than
+        <span class="math">&radic;(2<sup>n</sup>)</span> times.
+    </p>
+    <p>
+        Even if a conventional computer can compute the oracle function in a nanosecond,
+        if the input was 64 bits long,
+        then it would probably take hundreds of years
+        for that conventional computer
+        to find the answer.
+        A quantum computer might possibly take just a few seconds.
+        <span class="help">
+            A conventional computer would have to evaluate the oracle function an average of
+            <span class="math">2<sup>63</sup></span> times,
+            compared to just over four billion times for a quantum computer.
+            It is likely however,
+            at least in the early days of quantum computing,
+            that individual operations on a quantum computer may be vastly slower
+            than on a conventional computer.
+            It may take a while before quantum computers ever get
+            to solve a problem any faster than conventional computers.
+        </span>
+    </p>
+    <p>
+        For the extremely simple case where the input is only 2 bits,
+        there are four possible answers.
+        A conventional computer may need to test up to three
+        of those possible values.
+        (If it isn&apos;t the first three,
+        then you can infer it must be fourth one without testing it.)
+        As you will see below,
+        a quantum computer can find the answer
+        using a single invocation of the oracle function.
+    </p>
+
+
+
+    <h2>Quatum Search over 2 Qubits</h2>
+    
+    <p>
+        First recall that
+        the objective is to find the value of <span class="math">x</span>
+        for which the oracle function is true.
+        For Gover&apos;s Search Algorithm to work,
+        it is essential that the oracle function is true
+        for only one value of <span class="math">x</span>.
+    </p>
+    
+    <p>
+        In the conventional descriptions of Gover&apos;s Search Algorithm,
+        it is assumed that the the oracle function
+        will flip the value of an &ldquo;output&rdquo; qubit
+        when the input matches the desired result.
+        It is a lot more convenient if we do away with the output bit,
+        and instead flip the <em>phase</em>
+        when the input matches the desired result. 
+    </p>
+    
+    <p>
+        Here are the steps to Gover&apos;s Search Algorithm
+        for the very simple case of two bits.
+    </p>
+    
+    <ol>
+        <li>
+            Start with the qubits in a superposition of all possible states:
+            00, 01, 10, and 11 (all with the same phase).
+        </li>
+        <li>Apply the oracle function once only.</li>
+        <li>Apply a Hadamard operation to both qubits.</li>
+        <li>Flip the phase of the 00 state.</li>
+        <li>Apply a Hadamard operation to both qubits again.</li>
+        <li>
+            The resulting state is your desired answer
+            (except that it&apos;s phase will be 180 degrees which you can safely ignore).
+        </li>
+    </ol>
+    
+    <p>
+        You can try it yourself below.
+        The four possible oracle functions are labelled as
+        <span class="math">f<sub>x</sub></span>,
+        indicating that <span class="math">f</span> is
+        true for the value <span class="math">x</span>.
+    </p>
+    
+    <p>
+        Don&apos;t forget, you can safely ignore the final phase.
+    </p>
+    
+    <div class="animationBlock" id="SimpleSearchExample"
+        data-bit-labels="bit-a,bit-b">
+        <div class="animationBlock_buttons">
+            <div>
+                <div data-step="1">
+                    Choose one:
+                    <button class="operator" data-operator="f00"
+                        data-skipInterferenceSteps
+                        data-qubits="0"><span class="math">f<sub>00</sub></span></button>
+                    <button class="operator" data-operator="f01"
+                        data-skipInterferenceSteps
+                        data-qubits="0"><span class="math">f<sub>01</sub></span></button>
+                    <button class="operator" data-operator="f10"
+                        data-skipInterferenceSteps
+                        data-qubits="0"><span class="math">f<sub>10</sub></span></button>
+                    <button class="operator" data-operator="f11"
+                        data-skipInterferenceSteps
+                        data-qubits="0"><span class="math">f<sub>11</sub></span></button>
+                </div>
+                
+                <div>
+                    <button class="operator" data-operator="hadamard"
+                        data-qubits="1" data-step="2">Hadamard qubit-a</button>
+                    <button class="operator" data-operator="hadamard"
+                        data-qubits="0" data-step="3">Hadamard qubit-b</button>
+                </div>
+                <div>
+                    <button class="operator" data-operator="f00" data-skipInterferenceSteps
+                        data-qubits="0" data-step="4">Phase flip 00</button>
+                </div>
+                <div>
+                    <button class="operator" data-operator="hadamard"
+                        data-qubits="1" data-step="5">Hadamard qubit-a</button>
+                    <button class="operator" data-operator="hadamard"
+                        data-qubits="0" data-step="6">Hadamard qubit-b</button>
+                </div>
+                <div>
+                    <button class="reset">Reset</button>
+                </div>
+            </div>
+        </div>
+        <svg class="qstateSvg"></svg>
+    </div>
+    
+    
+    <p>
+        Don&apos;t forget,
+        unlike what happens in the animation,
+        all the states change simultaneously.
+    </p>
+
+
+
+
+    <h2>Beyond Quantum Search</h2>
+    <p>
+        The two bit search is a bit of a special case
+        where the oracle function only needs to be invoked once.
+        As the number of bits increases,
+        it becomes necessary to invoke the oracle function multiple times.
+        In fact it needs to be invoked
+        <span class="math">&frac14;&pi;&radic;(2<sup>n</sup>)</span>
+        times.
+    </p>
+    <p>
+        While general quantum search techniques may seem quite impressive,
+        even <span class="math">&frac14;&pi;&radic;(2<sup>n</sup>)</span> gets very large very quickly.
+    </p>
+    <p>
+        All you have to do is double the number of bits to wipe out any advantages.
+        For example,
+        over a 128 bit search space,
+        a quantum computer would need to evaluate the oracle function
+        almost as many times as a conventional computer does
+        over a 64 bit search space.
+        Even at one evaluation per nanosecond,
+        it would take hundreds of years to crack
+        a 128 bit encryption key.
+    </p>
+    <p>
+        However,
+        encryption keys
+        commonly used for securing internet traffic
+        (<a href="http://wikipedia.org/wiki/RSA_(algorithm)">RSA</a> keys)
+        can be broken using a special purpose quantum algorithm.
+        These encryption schemes rely on the difficulty of
+        factoring very large numbers,
+        something that can be easily done on a quantum computer using
+        <a href="http://wikipedia.org/wiki/Shor's_algorithm">Shor&apos;s Algorithm</a>.
+    </p>
+    <p>
+        Shor&apos;s Algorithm has a &ldquo;asymptotic&rdquo; behaviour of
+        <span class="math">O((log N)<sup>3</sup>)</span>.
+        I won&apos;t try to explain
+        the exact meaning of this statement,
+        but it is quite possible that
+        current encryption keys could be broken in sub-second time frames.
+        Also, simply doubling the length of the key would have a barely noticeable
+        effect on the time taken.
+        The limiting factor is likely to be the number of qubits required
+        since you need at least as many qubits as the key length.
+    </p>
+
+
+
+    <h2>D-Wave</h2>
+    <p>
+        You may have heard of
+        <a href="http://www.dwavesys.com/">D-Wave</a>
+        quantum computers.
+    </p>
+    <p>
+        These are currently the only commercially available quantum computers.
+        D-Wave are building quantum computers containing 512 qubits,
+        which in theory could be in a super position of
+        <span class="math">2<sup>512</sup></span> states.
+    </p>
+    <p>
+        Despite having such a large number of qubits,
+        there is little evidence that they have been solving
+        problems any faster than conventional computers.
+    </p>
+    <p>
+        D-Wave computers are special purpose
+        &ldquo;quantum annealing&rdquo; computers.
+        The quantum computers that I have been describing so far are
+        known as &ldquo;quantum gate&rdquo; computers.
+        Describing the differences are beyond the scope of this
+        (already long) article.
+    </p>
+    <p>
+        Before they can start out performing conventional computers,
+        it is possible that D-Wave simply needs to use more qubits,
+        or perhaps they may need to figure out how to make
+        more effective use of their existing qubits.
+        However,
+        it quite possibly will not be long before
+        we start seeing impressive results.
+    </p>
+
+
+
+    <h2>Some philosophy</h2>
+    <p>
+        Describing quantum computing
+        in terms of superpositions of states
+        that &ldquo;collapse&rdquo;
+        to the observed state
+        upon &ldquo;measurement&rdquo;
+        is a very conventional approach
+        to explaining the physics
+        behind quantum computing.
+        However, there are some serious
+        deficiencies with this approach.
+    </p>
+    <p>
+        Probably the most fundamental problem is:
+        <b>
+        What is so special about measurement that it causes
+        quantum superpositions to collapse?
+        </b>
+    </p>
+    <p>
+        The measuring equipment itself is made of the same stuff
+        as the qubits being measured
+        (protons, neutrons, electrons, and photons).
+    </p>
+    <p>
+        When measuring a qubit that is in a superposition of
+        two different states,
+        there is nothing in quantum physics that says why
+        the measuring equipment
+        might cause the superposition to collapse to a single state
+        instead of the measuring equipment
+        becoming entangled with the qubit.
+        Instead of the quantum state collapsing,
+        the result could be a superposition of the following two states:
+</p>
+    <ul>
+        <li>the qubit being 0 and the measuring equipment detecting 0</li>
+        <li>the qubit being 1 and the measuring equipment detecting 1</li>
+    </ul>
+    <p>
+        If you consider your conscious awareness to be
+        nothing more than patterns of activity in your brain,
+        and that your brain is governed by the laws of physics,
+        then there is nothing in quantum physics that says why,
+        when you look at the measurement outcome,
+        you yourself does not become entangled with
+        the quantum qubit and
+        the measuring equipment.
+        The result would be a superposition of the following two states:
+    </p>
+    <ul>
+        <li>the qubit being 0, the measuring equipment detecting 0,
+            and you being conscious of the measurement being 0</li>
+        <li>the qubit being 1, the measuring equipment detecting 1,
+            and you being conscious of the measurement being 1</li>
+    </ul>
+    <p>
+        <b>Think of it as two alternative realities existing.</b>
+        In one reality you see a 0,
+        and in the other you see a 1.
+        Quantum interference is the only ways that these realities interact.
+    </p>
+    <p>
+        Variations on this interpretation of quantum physics
+        are taken quite seriously
+        by many physicists and physics philosophers, and is
+        commonly referred to as the &ldquo;Many Worlds&rdquo;
+        interpretation of quantum physics.
+        Much has been written on the topic,
+        and an internet search will point you to
+        many good (and not so good) articles.
+    </p>
+    <p>
+        Quantum computing
+        provides a nice way of looking at some of these issues.
+        It may even provide a way of simulating ideas by,
+        for example,
+        representing different states of an observer using qubits.
+    </p>
+    
+    <p>
+        This article has already covered more topics than I originally planned.
+        However, I feel the need to include a little bit of
+        a mathematical explanation to some of the material.
+        For those that are not interested in the mathematics,
+        feel free to skip to the
+        <a href="#usefulLinks">Useful Links Section</a>
+        at the end.
+    </p>
+
+
+<h2 id="maths">Some mathematics</h2>
+    <p>
+        In this article
+        I used little blue disks with red arrows
+        to represent the probabilities
+        of a set of bits or qubits
+        being in different states.
+        It is likely that I caused some confusion
+        by quietly using the disks in subtly different ways
+        when describing
+        two quite different types of uncertainty.
+    </p>
+    <p>
+        When describing ordinary non-quantum bits,
+        the system is in a definite state,
+        but which state that is may be unknown.
+        In this situation,
+        it is most convenient if
+        the arrow lengths are proportional to the probabilities
+        of the respective states
+        so that they can be added head to tail.
+        If there were two scenarios, S1 and S2, both ending in the same state,
+        where S1 has a probability of p1
+        and S2 has a probability of p2,
+        then the probability of that final state is
+        <span class="math">p1 + p2</span>.
+    </p>
+    <p>
+        When describing qubits
+        in a superposition of different states,
+        it is no longer simply a case of not knowing which state they are in,
+        the system actually seems to be in multiple states at once.
+        In this situation,
+        it is most convenient if
+        the arrow lengths are proportional to the <em>square roots</em> of the probabilities
+        of the respective states
+        (the disk <em>areas</em> now effectively represent probabilities
+        except for a factor of &pi;).
+        The arrow directions represent their phases.
+        When two scenarios end in the same state,
+        you need to use vector addition to add the arrows.
+    </p>
+    <p>
+        <b>The arrows represent what physicists call &ldquo;amplitudes&rdquo;</b>.
+    </p>
+    <p>
+        Conventionally, an amplitude is represented using a complex number
+        whose value on the complex number plane coincides with the end of our arrow.
+        If our arrow has a length r and a phase &theta;,
+        then it is represented as the complex number:
+    </p>
+    <p>
+        <span class="math">r (cos(&theta;) + i sin(&theta;))</span>
+    </p>
+    <p>
+        If a state had this amplitude,
+        then the probability of that state being the outcome
+        of a measurement is <span class="math">r<sup>2</sup></span>.
+    </p>
+    <p>
+        When we talk of &ldquo;adding arrows head to tail&rdquo;,
+        we can simply add the corresponding complex numbers using
+        ordinary complex number arithmetic.
+    </p>
+    <p>
+        Given that the probabilities of all possible outcomes have to add up to 1,
+        it follows that the sum of the squares of the amplitude magnitudes
+        also have to add up to 1.
+        All quantum operators preserve this property.
+    </p>
+    <p>
+        If the amplitudes for the 0 and 1 states of a qubit are
+        the (possibly complex) numbers
+        <span class="math">a<sub>0</sub></span>
+        and
+        <span class="math">a<sub>1</sub></span>
+        respectively,
+        then applying a Hadamard results in
+        the amplitudes of 0 and 1 becoming
+        <span class="math">(1/&radic;2)(a<sub>0</sub> + a<sub>1</sub>)</span>
+        and
+        <span class="math">(1/&radic;2)(a<sub>0</sub> - a<sub>1</sub>)</span>
+        respectively.
+    </p>
+    <p>
+        For the simple case of a qubit being 100% in
+        the 1 state with a phase of 0,
+        applying a Hadamard results in
+        the amplitudes of 0 and 1 being
+        1/&radic;2 and -1/&radic;2 respectively.
+        Notice that if you square and add these together that you get 1.
+    </p>
+    <p>
+        That is already more mathematics as I wanted to cover in this article.
+        For more, see some of the useful links listed in the next section.
+    </p>
+
+
+
+    <h2 id="usefulLinks">Useful links</h2>
+
+    <ul>
+        <li>
+            A excellent learning resource is
+            <a href="https://cs.uwaterloo.ca/~watrous/CPSC519/LectureNotes/all.pdf">
+                John Watrous&apos; Introduction to Quantum Computing Lecture Notes
+            </a>.
+        </li>
+        <li>
+            Vazirani&apos;s online course:
+            <a href="https://www.edx.org/course/uc-berkeleyx/uc-berkeleyx-cs-191x-quantum-mechanics-1033#.U9SrqtoaySM">Quantum Mechanics and Quantum Computation</a>
+            is also excellent.
+        </li>
+        <li>
+            If you want to experiment with the various qubit operators,
+            then have a play with the
+            <a href="http://davidbkemp.github.io/quantum-gate-playground/">
+                Quantum Computer Gate Playground
+            </a>.
+        </li>
+        <li>
+            Try doing some quantum programming using
+            the <a href="http://davidbkemp.github.io/jsqubits/jsqubitsRunner.html">
+                jsqubits runner
+            </a>,
+            or the
+            <a href="http://qcplayground.withgoogle.com/#/home">
+                Quantum Computing Playground
+            </a>
+        </li>
+    </ul>
+
+
+
+<footer>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">An Interactive Introduction To Quantum Computing</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">David Kemp</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.</footer>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="dist/main.js"></script>
+<script src="browserSupportDetection.js"></script>
+</article>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56534383-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

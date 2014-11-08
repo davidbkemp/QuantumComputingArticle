@@ -1,0 +1,24 @@
+{
+  "name": "quantum-computation-article",
+  "version": "0.0.0",
+  "description": "An introduction to quantum computing",
+  "main": "main.js",
+  "repository": "tbd",
+  "private": true,
+  "scripts": {
+    "build": "gulp",
+    "watch": "gulp watch"
+  },
+  "author": "David Kemp",
+  "license": "Creative Commons & MIT",
+  "devDependencies": {
+    "animated-qubits": "0.0.8",
+    "q": "~1.0.0",
+    "jsqubits": "~0.2.0",
+    "gulp": "~3.8.6",
+    "gulp-util": "~3.0.0",
+    "gulp-browserify": "~0.5.0",
+    "gulp-uglify": "~0.3.1",
+    "gulp-jshint": "~1.7.1"
+  }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="140" height="150" viewBox="0, 0, 140, 150">
+  <g id="Front">
+    <g>
+      <path d="M70.5,55.589 C103.913,55.589 131,63.872 131,74.089" fill="#FFFFFF"/>
+      <path d="M70.5,55.589 C103.913,55.589 131,63.872 131,74.089" fill-opacity="0" stroke="#2AB217" stroke-width="3"/>
+    </g>
+    <g>
+      <path d="M10.5,74.089 C10.5,63.872 37.587,55.589 71,55.589" fill="#FFFFFF"/>
+      <path d="M10.5,74.089 C10.5,63.872 37.587,55.589 71,55.589" fill-opacity="0" stroke="#2AB217" stroke-width="3"/>
+    </g>
+    <g>
+      <path d="M70.5,110.089 C50.618,110.089 34.5,94.196 34.5,74.589 C34.5,54.983 50.618,39.089 70.5,39.089 C90.382,39.089 106.5,54.983 106.5,74.589 C106.5,94.196 90.382,110.089 70.5,110.089 z" fill="#E0361A"/>
+      <path d="M70.5,110.089 C50.618,110.089 34.5,94.196 34.5,74.589 C34.5,54.983 50.618,39.089 70.5,39.089 C90.382,39.089 106.5,54.983 106.5,74.589 C106.5,94.196 90.382,110.089 70.5,110.089 z" fill-opacity="0" stroke="#E0361A" stroke-width="1"/>
+    </g>
+    <g>
+      <path d="M56.905,92.121 C30.038,90.234 10,82.877 10,74.089" fill-opacity="0" stroke="#2AB217" stroke-width="3"/>
+      <path d="M56.761,96.318 L68.099,92.507 L57.05,87.923 z" fill="#2AB217" fill-opacity="1" stroke="#2AB217" stroke-width="3" stroke-opacity="1"/>
+    </g>
+    <path d="M131,74.234 C130.462,81.489 120.05,85.152 114.294,86.998 C103.615,90.423 92.358,91.747 81.21,92.445" fill-opacity="0" stroke="#2AB217" stroke-width="3"/>
+    <path d="M70.5,110.089 L70.5,144.5" fill-opacity="0" stroke="#000000" stroke-width="3"/>
+    <g>
+      <path d="M70.5,39.089 L70.798,19.098" fill-opacity="0" stroke="#000000" stroke-width="3"/>
+      <path d="M74.997,19.161 L70.964,7.9 L66.598,19.036 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="3" stroke-opacity="1"/>
+    </g>
+  </g>
+</svg>

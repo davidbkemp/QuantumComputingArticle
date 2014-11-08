@@ -1,0 +1,136 @@
+body {
+    max-width: 960px;
+    font-size: 16pt;
+    margin: 1em;
+}
+
+button {
+    font-size: 10pt;
+}
+
+footer {
+    margin-top: 1em;
+    padding-top: 1em;
+    font-size: 80%;
+    border-top: 1px grey solid;
+}
+
+.attributions {
+    font-size: 80%;
+}
+
+h1, h2, h3 {
+    color: #25378B;
+    font-weight: bold;
+}
+
+h1, h2 {
+    font-size: 150%;
+}
+
+h3 {
+    font-size: 120%;
+}
+
+.help {
+    color: gray;
+}
+
+.help_button {
+    border-color: hsla(195, 53%, 60%, 0.5);
+    background-color: hsla(195, 53%, 60%, 0.5);
+    border-radius: 0.5em;
+}
+
+.titleImage {
+    float: right;
+    margin: 1em 0 1em 3em;
+}
+
+.largeImage {
+    width: 80%;
+}
+
+.mediumImage {
+    width: 50%;
+}
+
+.labelledImage {
+    display: inline-block;
+}
+
+.nuclearSpinLabel {
+    width: 140px;
+}
+
+.nuclearSpinLabel {
+    text-align: center;
+}
+
+.animatedQubitsAmplitudeCircle {
+    fill: hsla(195, 53%, 60%, 0.5);
+}
+
+.animatedQubitsPhaseArrow {
+    stroke: red;
+    stroke-width: 2px;
+}
+
+.animatedQubitsPhaseArrowEnd {
+    fill: red;
+}
+
+.qstate {
+    margin: 1em 0 0.2em 0;
+    min-height: 2.5em;
+}
+
+.qstateSvg {
+    width: 15em;
+}
+
+.animationBlock {
+    border: 1px solid #999;
+    max-width: 26em;
+    min-width: 10em;
+    padding: 0.5em;
+}
+
+.animationBlock_buttons {
+    margin: 0.5em 0;
+}
+
+.animationBlock_buttons button {
+    margin: 2px;
+}
+
+.qstateSvg__hideBitLabels .animatedQubitsBitLabels {
+    display: none;;
+}
+
+[data-bit-labels] .animatedQubitsBitLabels {
+    font-size: 65%;
+}
+
+.qstateSvg__hideArrows .animatedQubitsPhaseArrow,
+.qstateSvg__hideArrows .animatedQubitsPhaseArrowEnd {
+    display: none;
+}
+
+
+.math {
+    white-space: nowrap;
+    font-style: italic;
+}
+
+.hidden {
+    display: none;
+}
+
+button[data-step], [data-step] button{
+    font-weight: bold;
+}
+
+[data-step]:disabled, [data-step] :disabled {
+    font-weight: lighter;
+}

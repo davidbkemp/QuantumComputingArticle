@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="140" height="150" viewBox="0, 0, 140, 150">
+  <g id="Front">
+    <g>
+      <path d="M70.5,57.411 C37.087,57.411 10,65.693 10,75.911" fill="#FFFFFF"/>
+      <path d="M70.5,57.411 C37.087,57.411 10,65.693 10,75.911" fill-opacity="0" stroke="#2AB217" stroke-width="3"/>
+    </g>
+    <g>
+      <path d="M130.5,75.911 C130.5,65.693 103.413,57.411 70,57.411" fill="#FFFFFF"/>
+      <path d="M130.5,75.911 C130.5,65.693 103.413,57.411 70,57.411" fill-opacity="0" stroke="#2AB217" stroke-width="3"/>
+    </g>
+    <g>
+      <path d="M70.5,39.911 C90.382,39.911 106.5,55.804 106.5,75.411 C106.5,95.017 90.382,110.911 70.5,110.911 C50.618,110.911 34.5,95.017 34.5,75.411 C34.5,55.804 50.618,39.911 70.5,39.911 z" fill="#E0361A"/>
+      <path d="M70.5,39.911 C90.382,39.911 106.5,55.804 106.5,75.411 C106.5,95.017 90.382,110.911 70.5,110.911 C50.618,110.911 34.5,95.017 34.5,75.411 C34.5,55.804 50.618,39.911 70.5,39.911 z" fill-opacity="0" stroke="#E0361A" stroke-width="1"/>
+    </g>
+    <g>
+      <path d="M84.095,93.942 C110.962,92.055 131,84.699 131,75.911" fill-opacity="0" stroke="#2AB217" stroke-width="3"/>
+      <path d="M83.95,89.744 L72.901,94.328 L84.239,98.139 z" fill="#2AB217" fill-opacity="1" stroke="#2AB217" stroke-width="3" stroke-opacity="1"/>
+    </g>
+    <path d="M10,76.055 C10.538,83.31 20.95,86.973 26.706,88.819 C37.385,92.244 48.642,93.569 59.791,94.266" fill-opacity="0" stroke="#2AB217" stroke-width="3"/>
+    <path d="M70.5,39.911 L70.5,5.5" fill-opacity="0" stroke="#000000" stroke-width="3"/>
+    <g>
+      <path d="M70.5,110.911 L70.202,130.902" fill-opacity="0" stroke="#000000" stroke-width="3"/>
+      <path d="M66.003,130.839 L70.036,142.1 L74.402,130.964 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="3" stroke-opacity="1"/>
+    </g>
+  </g>
+</svg>
