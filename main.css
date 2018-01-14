@@ -19,6 +19,11 @@ footer {
     font-size: 80%;
 }
 
+.aside {
+    font-size: 70%;
+    font-style: italic;
+}
+
 h1, h2, h3 {
     color: #25378B;
     font-weight: bold;
