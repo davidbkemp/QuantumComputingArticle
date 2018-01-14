@@ -215,11 +215,15 @@
         This is a classic needle in a haystack search problem.
     </p>
     <p>
-        You need to construct a function,
-        called the <em>oracle</em> function,
+        In other words,
+        it belongs to a class of problems for which
+        there exists an efficient function,
+        called an <em>oracle</em> (or <em>verification</em>) function,
         that takes a candidate value as input
-        and returns true or false depending
-        on whether or not the candidate is the correct key.
+        and returns true if the candidate is the correct value.
+        However,
+        the only way to find the correct value
+        is to test the oracle function on practically every possible value.
     </p>
     <p>
         A conventional computer will need to evaluate the oracle function,
@@ -273,7 +277,7 @@
         for which the oracle function is true.
         For Gover&apos;s Search Algorithm to work,
         it is essential that the oracle function is true
-        for only one value of <span class="math">x</span>.
+        for exactly one value of <span class="math">x</span>.
     </p>
     
     <p>
@@ -290,32 +294,52 @@
         Here are the steps to Gover&apos;s Search Algorithm
         for the very simple case of two bits.
     </p>
+    <p>
+        For example, the problem may be to
+        <em>find factors of 15 that are less than 4</em>.
+        This is obviously trivial for such small values,
+        but the problem of finding factors for very large numbers
+        (e.g. numbers with over 100 digits)
+        is currently a very computationally expensive problem.
+    </p>
     
     <ol>
         <li>
             Start with the qubits in a superposition of all possible states:
             00, 01, 10, and 11 (all with the same phase).
         </li>
-        <li>Apply the oracle function once only.</li>
+        <li>
+            Apply the oracle function once only.
+            Note that,
+            because the system starts in a superposition of all possible states,
+            the oracle function is effectively applied to all possible states,
+            but it will only flip the phase of the state for which we are searching.
+            If you were to perform a measurement now,
+            all the possible outcomes are still equally likely
+            and so we don't seem to have made any progress.
+            However, the next three steps use quantum interference to find the correct answer.
+        </li>
         <li>Apply a Hadamard operation to both qubits.</li>
         <li>Flip the phase of the 00 state.</li>
         <li>Apply a Hadamard operation to both qubits again.</li>
         <li>
-            The resulting state is your desired answer
-            (except that it&apos;s phase will be 180 degrees which you can safely ignore).
+            Constructive and destructive quantum interference will ensure that,
+            of the four possible states,
+            a measurement is guaranteed to result in only the desired state.
         </li>
     </ol>
     
     <p>
         You can try it yourself below.
-        The four possible oracle functions are labelled as
-        <span class="math">f<sub>x</sub></span>,
-        indicating that <span class="math">f</span> is
-        true for the value <span class="math">x</span>.
-    </p>
-    
-    <p>
-        Don&apos;t forget, you can safely ignore the final phase.
+        Your task is to find the value for which the oracle function
+        <span class="math">f</span>
+        is "true".
+        i.e. the state for which
+        <span class="math">f</span>
+        will flip the phase.
+        On a classical computer you would typically end up testing
+        at least half the states before finding the answer.
+        On a quantum computer you can test all the states simultaneously.
     </p>
     
     <div class="animationBlock" id="SimpleSearchExample"
@@ -323,19 +347,10 @@
         <div class="animationBlock_buttons">
             <div>
                 <div data-step="1">
-                    Choose one:
-                    <button class="operator" data-operator="f00"
-                        data-skipInterferenceSteps
-                        data-qubits="0"><span class="math">f<sub>00</sub></span></button>
-                    <button class="operator" data-operator="f01"
-                        data-skipInterferenceSteps
-                        data-qubits="0"><span class="math">f<sub>01</sub></span></button>
+                    Apply the oracle function (to all states):
                     <button class="operator" data-operator="f10"
                         data-skipInterferenceSteps
-                        data-qubits="0"><span class="math">f<sub>10</sub></span></button>
-                    <button class="operator" data-operator="f11"
-                        data-skipInterferenceSteps
-                        data-qubits="0"><span class="math">f<sub>11</sub></span></button>
+                        data-qubits="0"><span class="math">f<sub>oracle</sub></span></button>
                 </div>
                 
                 <div>
@@ -354,19 +369,24 @@
                     <button class="operator" data-operator="hadamard"
                         data-qubits="0" data-step="6">Hadamard qubit-b</button>
                 </div>
-                <div>
-                    <button class="reset">Reset</button>
+                <div class="aside">
+                    Only the searched-for state now has a non-zero probability
+                    and a measurement can be safely applied.
                 </div>
             </div>
         </div>
         <svg class="qstateSvg"></svg>
+        <div class="animationBlock_buttons">
+            <button class="reset">Reset</button>
+        </div>
     </div>
     
     
     <p>
         Don&apos;t forget,
         unlike what happens in the animation,
-        all the states change simultaneously.
+        each operation is effectively applied to
+        all the states simultaneously.
     </p>
 
 
